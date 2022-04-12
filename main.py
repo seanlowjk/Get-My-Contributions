@@ -12,12 +12,13 @@ issues = []
 prs = []
 
 page_num = 1
+should_terminate = False
 while True: 
     dest_url = "{}/issues?creator={}&state=all&page={}".format(repo_url, username, page_num)
     data = requests.get(dest_url, headers=headers)
     json_data = json.loads(data.content)
 
-    if len(json_data) == 0:
+    if len(json_data) == 0 or should_terminate:
         print("Issues done.")
         break 
 
@@ -26,13 +27,24 @@ while True:
             created_at, title, number, url = json_doc["created_at"], \
                 json_doc["title"], json_doc["number"], json_doc["url"]
             created_date = dateutil.parser.isoparse(created_at).strftime("%d %b %Y")
+            created_date = dateutil.parser.isoparse(created_at)
+            if created_date <= dateutil.parser.isoparse('{}-05-01T00:00:00.000000Z'.format(academic_year)):
+                should_terminate = True
+                break 
+
+            created_date = created_date.strftime("%d %b %Y")
 
             res_str = "| {} | Submitted Issue: [{} #{}]({}) |".format(created_date, title.strip(), number, url)
             issues.append(res_str)
         else: 
             created_at, title, number, url = json_doc["created_at"], \
                 json_doc["title"], json_doc["number"], json_doc["url"]
-            created_date = dateutil.parser.isoparse(created_at).strftime("%d %b %Y")
+            created_date = dateutil.parser.isoparse(created_at)
+            if created_date <= dateutil.parser.isoparse('{}-05-01T00:00:00.000000Z'.format(academic_year)):
+                should_terminate = True
+                break 
+
+            created_date = created_date.strftime("%d %b %Y")
 
             res_str = "| {} | Submitted PR: [{} #{}]({}) |".format(created_date, title.strip(), number, url)
             prs.append(res_str)
@@ -64,7 +76,7 @@ while True:
         created_at, title, number, url = json_doc["created_at"], \
             json_doc["title"], json_doc["number"], json_doc["url"]
         created_date = dateutil.parser.isoparse(created_at) 
-        if created_date <= dateutil.parser.isoparse('{}-08-01T00:00:00.000000Z'.format(academic_year)):
+        if created_date <= dateutil.parser.isoparse('{}-05-01T00:00:00.000000Z'.format(academic_year)):
             should_terminate = True
             break 
 
