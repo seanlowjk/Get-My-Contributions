@@ -96,17 +96,17 @@ while True:
     page_num = page_num + 1
         
 with open("progress.md", "w+") as f:
-    f.write("### Issues\n\n| Week | Achievements |")
+    f.write("### Issues\n\n| Week | Achievements |\n| ---- | ------------ |\n")
     for issue in issues:
         f.write(issue + "\n")
     f.write("\n")
 
-    f.write("### Pull Requests\n\n| Week | Achievements |")
+    f.write("### Pull Requests\n\n| Week | Achievements |\n| ---- | ------------ |\n")
     for pr in prs:
         f.write(pr + "\n")
     f.write("\n")
 
-    f.write("### PR Reviews\n\n| Week | Achievements |")
+    f.write("### PR Reviews\n\n| Week | Achievements |\n| ---- | ------------ |\n")
     for review in reviews:
         f.write(review + "\n")
     f.write("\n")
