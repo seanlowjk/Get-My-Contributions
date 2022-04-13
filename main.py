@@ -25,7 +25,7 @@ while True:
     for json_doc in json_data:
         if not "pull_request" in json_doc: 
             created_at, title, number, url = json_doc["created_at"], \
-                json_doc["title"], json_doc["number"], json_doc["url"]
+                json_doc["title"], json_doc["number"], json_doc["html_url"]
             created_date = dateutil.parser.isoparse(created_at).strftime("%d %b %Y")
             created_date = dateutil.parser.isoparse(created_at)
             if created_date <= dateutil.parser.isoparse('{}-05-01T00:00:00.000000Z'.format(academic_year)):
@@ -38,7 +38,7 @@ while True:
             issues.append(res_str)
         else: 
             created_at, title, number, url = json_doc["created_at"], \
-                json_doc["title"], json_doc["number"], json_doc["url"]
+                json_doc["title"], json_doc["number"], json_doc["html_url"]
             created_date = dateutil.parser.isoparse(created_at)
             if created_date <= dateutil.parser.isoparse('{}-05-01T00:00:00.000000Z'.format(academic_year)):
                 should_terminate = True
@@ -74,7 +74,7 @@ while True:
 
     for json_doc in json_data:
         created_at, title, number, url = json_doc["created_at"], \
-            json_doc["title"], json_doc["number"], json_doc["url"]
+            json_doc["title"], json_doc["number"], json_doc["html_url"]
         created_date = dateutil.parser.isoparse(created_at) 
         if created_date <= dateutil.parser.isoparse('{}-05-01T00:00:00.000000Z'.format(academic_year)):
             should_terminate = True
